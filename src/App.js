@@ -8,10 +8,15 @@ const imageUrl = "https://cdn.pixabay.com/photo/2016/11/19/00/17/infinity-183743
 
 function App() {
   const [data, setData] = useState([]);
+  const [pageNumber, setPageNumber] = useState([1]);
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
 
-  const fetchData = async () => {
+  const fetchData = async (page) => {
     try {
       const response = await axios.get(url, {
+        params: {
+          page: page.toString()
+        },
         headers: {
           // this api key is not confidental and can be exposed.
           'x-api-key': 'aZ6S5wfZiW7k1MFsIRhE96EJNqlc2ZDJ8DvK5jCg',
@@ -20,18 +25,34 @@ function App() {
       const sortedData = [...response.data.data].sort(
         (a,b)=> b?.playercount - a?.playercount);
       setData(sortedData);
+      return response.status;
     } catch (error) {
       console.error("error fetching:", error);
     }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(pageNumber);
   }, []);
 
   // return number with thousand separators. 1000000=>1.000.000
   function numberWithSeparators(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
+  const changePage = async (param) => {
+    setButtonsDisabled(true);
+    let newPageNumber = parseInt(pageNumber) + param;
+    newPageNumber = newPageNumber > 0 ? newPageNumber : 1;
+    if (newPageNumber == pageNumber) { 
+      setButtonsDisabled(false);
+      return;
+    }
+    let responseStatus = await fetchData(newPageNumber);
+    if (responseStatus === 200) {
+      setPageNumber(newPageNumber);
+      setButtonsDisabled(false);
+    } 
   }
 
   return (
@@ -43,7 +64,7 @@ function App() {
           style={{ maxWidth: "7%", height: "auto"}}/>
 
         <ul style={{ listStyleType: 'none', padding: 0 }}>
-          <li>Game | Currentplayers | 24h peak | 24h bottom</li>
+          <li>Game | Currentplayers | 24h peak | 24h bottom | PAGE:{pageNumber}</li>
           {data &&
             data.map((item) => (
               <li key={item.gameid}
@@ -54,6 +75,14 @@ function App() {
               </li>
             ))}
         </ul>
+        
+        <div style={{ display: 'flex' }}>
+          <button style={{ marginRight: '10px' }} onClick={()=>changePage(-1)}
+          disabled={buttonsDisabled}
+          >EARLIER PAGE</button>
+          <button onClick={()=>changePage(1)} disabled={buttonsDisabled}
+          >NEXT PAGE</button>
+        </div>
 
       </header>
     </div>
