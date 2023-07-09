@@ -78,7 +78,7 @@ const App = () => {
           <main className='App-main'>
             <TableComponent data={data}/>
             <PageNavigation changePage={changePage} 
-              buttonsDisabled={buttonsDisabled}/>
+              buttonsDisabled={buttonsDisabled} pageNumber={pageNumber}/>
           </main>
           <footer className="App-footer">
             Not affiliated with Valve or Steam. All
