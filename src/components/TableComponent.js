@@ -15,7 +15,7 @@ const TableComponent = ({data}) => {
         margin: '0 auto',
       }}
     >
-      <Table sx={{ minWidth: 650 }}
+      <Table sx={{ minWidth: 100 }}
         size="small" aria-label="a dense table"
       >
         <TableHead>
