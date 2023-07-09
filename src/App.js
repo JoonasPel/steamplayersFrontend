@@ -4,6 +4,17 @@ import axios from 'axios';
 import React, { useEffect, useState} from 'react';
 //MUI
 import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+// change to 100,300,400,500,700,900 to change font.
+// get italic with e.g. '@fontsource/roboto/300-italic.css';
+import '@fontsource/roboto/500.css';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 const url = "https://jlxkrysich.execute-api.eu-north-1.amazonaws.com/prod/data";
 const imageUrl = "https://cdn.pixabay.com/photo/2016/11/19/00/17/infinity-1837436_1280.png";
@@ -58,36 +69,62 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <React.Fragment>
+      <CssBaseline />
+      <div className="App">
+        <header className="App-header">
 
-        <img src={imageUrl} className="App-logo"
-          alt="black infinity symbol rotating clockwise"
-          style={{ maxWidth: "7%", height: "auto"}}/>
+          <img src={imageUrl} className="App-logo"
+            alt="black infinity symbol rotating clockwise"
+            style={{ maxWidth: "7%", height: "auto"}}/>
 
-        <ul style={{ listStyleType: 'none', padding: 0 }}>
-          <li>Game | Current | 24h peak | 24h bottom | PAGE:{pageNumber}</li>
-          {data &&
-            data.map((item) => (
-              <li key={item.gameid}
-                style={{marginBottom:'10px', backgroundColor:"#1d69a8",
-                padding:'5px 10px', border:"2px solid #ccc"}}>
-                {item?.gamename+" | "+item?.playercount+" | "+item?.peak+
-                " | "+item?.bottom}
-              </li>
-            ))}
-        </ul>
-        
-        <div style={{ display: 'flex' }}>
-          <Button variant="contained" onClick={()=>changePage(-1)}
-          disabled={buttonsDisabled}
-          >EARLIER PAGE</Button>
-          <Button variant="contained" onClick={()=>changePage(1)} disabled={buttonsDisabled}
-          >NEXT PAGE</Button>
-        </div>
+          <TableContainer component={Paper}
+            sx={{
+              width: '60%',
+              margin: '0 auto', // Center the table horizontally
+            }}
+          >
+            <Table sx={{ minWidth: 650 }}
+              size="small" aria-label="a dense table"
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>Game</TableCell>
+                  <TableCell align='right'>Current</TableCell>
+                  <TableCell align='right'>24h peak</TableCell>
+                  <TableCell align='right'>24h bottom</TableCell>
+                </TableRow>
+              </TableHead>
 
-      </header>
-    </div>
+              <TableBody>
+                {data && data.map((item) => (
+                  <TableRow 
+                    key={item.gameid}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component='th' scope='row'>
+                      {item.gamename}
+                    </TableCell>
+                    <TableCell align='right'>{item?.playercount}</TableCell>
+                    <TableCell align='right'>{item?.peak}</TableCell>
+                    <TableCell align='right'>{item?.bottom}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <div style={{ display: 'flex' }}>
+            <Button variant="contained" onClick={()=>changePage(-1)}
+            disabled={buttonsDisabled}
+            >EARLIER PAGE</Button>
+            <Button variant="contained" onClick={()=>changePage(1)} disabled={buttonsDisabled}
+            >NEXT PAGE</Button>
+          </div>
+
+        </header>
+      </div>
+    </React.Fragment>
   );
 };
 
