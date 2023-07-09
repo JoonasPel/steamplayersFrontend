@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import React, { useEffect, useState} from 'react';
+//MUI
+import Button from '@mui/material/Button';
 
 const url = "https://jlxkrysich.execute-api.eu-north-1.amazonaws.com/prod/data";
 const imageUrl = "https://cdn.pixabay.com/photo/2016/11/19/00/17/infinity-1837436_1280.png";
@@ -64,7 +66,7 @@ function App() {
           style={{ maxWidth: "7%", height: "auto"}}/>
 
         <ul style={{ listStyleType: 'none', padding: 0 }}>
-          <li>Game | Currentplayers | 24h peak | 24h bottom | PAGE:{pageNumber}</li>
+          <li>Game | Current | 24h peak | 24h bottom | PAGE:{pageNumber}</li>
           {data &&
             data.map((item) => (
               <li key={item.gameid}
@@ -77,11 +79,11 @@ function App() {
         </ul>
         
         <div style={{ display: 'flex' }}>
-          <button style={{ marginRight: '10px' }} onClick={()=>changePage(-1)}
+          <Button variant="contained" onClick={()=>changePage(-1)}
           disabled={buttonsDisabled}
-          >EARLIER PAGE</button>
-          <button onClick={()=>changePage(1)} disabled={buttonsDisabled}
-          >NEXT PAGE</button>
+          >EARLIER PAGE</Button>
+          <Button variant="contained" onClick={()=>changePage(1)} disabled={buttonsDisabled}
+          >NEXT PAGE</Button>
         </div>
 
       </header>
