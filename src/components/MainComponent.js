@@ -24,7 +24,9 @@ const MainComponent = () => {
           'x-api-key': 'aZ6S5wfZiW7k1MFsIRhE96EJNqlc2ZDJ8DvK5jCg',
         },
       });
-      const sortedData = [...response.data.data].sort(
+      const parsedData = response.data.data.map(
+        item => JSON.parse(item));
+      const sortedData = parsedData.sort(
         (a,b)=> b?.playercount - a?.playercount);
       setData(sortedData);
       return response.status;
