@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 import '../App.css';
 // components
 import TableComponent from "./TableComponent";
+import TrendingTable from "./TrendingTable";
 import PageNavigation from "./PageNavigation";
+import Stack from "@mui/material/Stack"
 
 const url =
   "https://jlxkrysich.execute-api.eu-north-1.amazonaws.com/prod/data";
 
 const MainComponent = () => {
   const [data, setData] = useState([]);
+  const [trendingData, setTrendingData] = useState([]);
   const [pageNumber, setPageNumber] = useState([1]);
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
 
@@ -35,8 +38,28 @@ const MainComponent = () => {
     }
   };
 
+  const fetchTreding = async () => {
+    try {
+      const response = await axios.get(url, {
+        params: {
+          trending: 1
+        },
+        headers: {
+          // this api key is not confidental and can be exposed.
+          'x-api-key': 'aZ6S5wfZiW7k1MFsIRhE96EJNqlc2ZDJ8DvK5jCg',
+        },
+      });   
+      const parsedData = JSON.parse(response.data.data);
+      setTrendingData(parsedData);
+      return response.status;
+    } catch (error) {
+      console.error("error fetching:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData(pageNumber);
+    fetchTreding();
   }, []);
 
   // return number with thousand separators. 1000000=>1.000.000
@@ -61,9 +84,17 @@ const MainComponent = () => {
 
   return (
     <main className='App-main'>
-      <TableComponent data={data}/>
-      <PageNavigation changePage={changePage} 
-        buttonsDisabled={buttonsDisabled} pageNumber={pageNumber}/>
+      <Stack direction="row" spacing={5}>
+        <Stack spacing={1} alignItems="flex-end">
+          <TableComponent data={data}/>
+          <PageNavigation changePage={changePage} 
+            buttonsDisabled={buttonsDisabled} pageNumber={pageNumber}/>
+        </Stack>
+        <Stack>
+          <TrendingTable data={trendingData}/>
+        </Stack>
+      </Stack>
+
     </main>
   );
 };
