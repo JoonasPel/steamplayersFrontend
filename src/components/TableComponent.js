@@ -20,7 +20,7 @@ const TableComponent = ({data}) => {
       >
         <TableHead>
           <TableRow>
-            <TableCell style={{ fontSize: '25px', fontWeight: 'bold' }}
+            <TableCell style={{ width: '400px', fontSize: '25px', fontWeight: 'bold' }}
               >Game</TableCell>
             <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
               align='right'>Current</TableCell>

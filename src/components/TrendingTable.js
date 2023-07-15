@@ -20,10 +20,10 @@ const TrendingTable = ({data}) => {
       >
         <TableHead>
           <TableRow>
-            <TableCell style={{ fontSize: '25px', fontWeight: 'bold' }}
-              >Trending</TableCell>
+            <TableCell style={{ width: '350px', fontSize: '25px', fontWeight: 'bold' }}
+              >Trending Today</TableCell>
             <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
-              align='right'>Increase Today</TableCell>
+              align='right'>Increase</TableCell>
           </TableRow>
         </TableHead>
 
