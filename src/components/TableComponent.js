@@ -7,6 +7,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 
+  // return number with thousand separators. 1000000=>1.000.000
+  function numberWithSeparators(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+
 const TableComponent = ({data}) => {
   return (
     <TableContainer component={Paper}
@@ -40,9 +45,9 @@ const TableComponent = ({data}) => {
               <TableCell component='th' scope='row'>
                 {item.gamename}
               </TableCell>
-              <TableCell align='right'>{item?.playercount}</TableCell>
-              <TableCell align='right'>{item?.peak}</TableCell>
-              <TableCell align='right'>{item?.bottom}</TableCell>
+              <TableCell align='right'>{numberWithSeparators(item?.playercount)}</TableCell>
+              <TableCell align='right'>{numberWithSeparators(item?.peak)}</TableCell>
+              <TableCell align='right'>{numberWithSeparators(item?.bottom)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

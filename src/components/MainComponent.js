@@ -62,11 +62,6 @@ const MainComponent = () => {
     fetchTreding();
   }, []);
 
-  // return number with thousand separators. 1000000=>1.000.000
-  function numberWithSeparators(number) {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  }
-
   const changePage = async (param) => {
     setButtonsDisabled(true);
     let newPageNumber = parseInt(pageNumber) + param;

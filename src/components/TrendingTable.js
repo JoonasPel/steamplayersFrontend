@@ -36,7 +36,9 @@ const TrendingTable = ({data}) => {
               <TableCell component='th' scope='row'>
                 {item.gamename}
               </TableCell>
-              <TableCell align='right'>{Math.round(item?.increase*100)}%</TableCell>
+              <TableCell align='right' style={{color: "green"}}>
+                {Math.round(item?.increase*100)}%
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
