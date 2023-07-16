@@ -20,7 +20,7 @@ const TrendingTable = ({data}) => {
       >
         <TableHead>
           <TableRow>
-            <TableCell style={{ width: '350px', fontSize: '25px', fontWeight: 'bold' }}
+            <TableCell style={{ width: '400px', fontSize: '25px', fontWeight: 'bold' }}
               >Trending Today</TableCell>
             <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
               align='right'>Increase</TableCell>
@@ -33,12 +33,16 @@ const TrendingTable = ({data}) => {
               key={item.gameid}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component='th' scope='row'>
+              <TableCell style={{ fontSize: '17px'}}
+                component='th' scope='row'>
                 {item.gamename}
               </TableCell>
-              <TableCell align='right' style={{color: "green"}}>
+
+              <TableCell style={{color: "green", fontSize: '19px'}}
+                align='right'>
                 {Math.round(item?.increase*100)}%
               </TableCell>
+
             </TableRow>
           ))}
         </TableBody>

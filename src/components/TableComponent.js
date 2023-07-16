@@ -25,7 +25,7 @@ const TableComponent = ({data, pageNumber}) => {
       >
         <TableHead>
           <TableRow>
-            <TableCell style={{ width: '410px', fontSize: '25px', fontWeight: 'bold' }}
+            <TableCell style={{ width: '500px', fontSize: '25px', fontWeight: 'bold' }}
               >Game</TableCell>
             <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
               align='right'>Current</TableCell>
@@ -42,12 +42,26 @@ const TableComponent = ({data, pageNumber}) => {
               key={item.gameid}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component='th' scope='row'>
+              <TableCell component='th' scope='row'
+                style={{ fontSize: '18px'}}>
                 {(((pageNumber-1)*10)+index+1) +'. '+ item.gamename}
               </TableCell>
-              <TableCell align='right'>{numberWithSeparators(item?.playercount)}</TableCell>
-              <TableCell align='right'>{numberWithSeparators(item?.peak)}</TableCell>
-              <TableCell align='right'>{numberWithSeparators(item?.bottom)}</TableCell>
+
+              <TableCell style={{ fontSize: '17px'}}
+                align='right'>
+                  {numberWithSeparators(item?.playercount)}
+              </TableCell>
+
+              <TableCell style={{ fontSize: '17px'}}
+                align='right'>
+                  {numberWithSeparators(item?.peak)}
+              </TableCell>
+
+              <TableCell style={{ fontSize: '17px'}}
+                align='right'>
+                  {numberWithSeparators(item?.bottom)}
+              </TableCell>
+              
             </TableRow>
           ))}
         </TableBody>
