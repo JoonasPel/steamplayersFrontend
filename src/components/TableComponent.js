@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
 
-const TableComponent = ({data}) => {
+const TableComponent = ({data, pageNumber}) => {
   return (
     <TableContainer component={Paper}
       sx={{
@@ -25,7 +25,7 @@ const TableComponent = ({data}) => {
       >
         <TableHead>
           <TableRow>
-            <TableCell style={{ width: '400px', fontSize: '25px', fontWeight: 'bold' }}
+            <TableCell style={{ width: '410px', fontSize: '25px', fontWeight: 'bold' }}
               >Game</TableCell>
             <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
               align='right'>Current</TableCell>
@@ -37,13 +37,13 @@ const TableComponent = ({data}) => {
         </TableHead>
 
         <TableBody>
-          {data && data.map((item) => (
+          {data && data.map((item, index) => (
             <TableRow 
               key={item.gameid}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component='th' scope='row'>
-                {item.gamename}
+                {(((pageNumber-1)*10)+index+1) +'. '+ item.gamename}
               </TableCell>
               <TableCell align='right'>{numberWithSeparators(item?.playercount)}</TableCell>
               <TableCell align='right'>{numberWithSeparators(item?.peak)}</TableCell>

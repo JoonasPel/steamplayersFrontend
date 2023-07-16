@@ -81,7 +81,7 @@ const MainComponent = () => {
     <main className='App-main'>
       <Stack direction="row" spacing={5}>
         <Stack spacing={1} alignItems="flex-end">
-          <TableComponent data={data}/>
+          <TableComponent data={data} pageNumber={pageNumber}/>
           <PageNavigation changePage={changePage} 
             buttonsDisabled={buttonsDisabled} pageNumber={pageNumber}/>
         </Stack>
