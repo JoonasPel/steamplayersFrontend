@@ -8,7 +8,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import '@fontsource/roboto/500.css';
 // components
 import MainComponent from './components/MainComponent';
-import { Link } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -28,9 +27,6 @@ const App = () => {
           </header>
  
           <MainComponent />
-          <Link href="https://www.g2a.com/squad-steam-key-global-i10000008695006?gtag=16cf32cff3"
-            target="_blank" rel="noopener noreferrer"
-            >Buy now!</Link>
           
           <footer className="App-footer">
             Not affiliated with Valve or Steam. All
