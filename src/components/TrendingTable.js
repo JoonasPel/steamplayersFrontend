@@ -5,9 +5,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from '@mui/material';
 
 
-const TrendingTable = ({data}) => {
+const TrendingTable = ({data, aff}) => {
   return (
     <TableContainer component={Paper}
       sx={{
@@ -20,10 +21,16 @@ const TrendingTable = ({data}) => {
       >
         <TableHead>
           <TableRow>
-            <TableCell style={{ width: '400px', fontSize: '25px', fontWeight: 'bold' }}
+            <TableCell style={{ width: '300px', fontSize: '25px', fontWeight: 'bold' }}
               >Trending Today</TableCell>
             <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
               align='right'>Increase</TableCell>
+            <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
+              align='right'>price now</TableCell>
+            <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
+              align='right'>retail</TableCell>
+            <TableCell style={{ fontSize: '22px', fontWeight: 'bold' }}
+              align='right'>link</TableCell>
           </TableRow>
         </TableHead>
 
@@ -41,6 +48,30 @@ const TrendingTable = ({data}) => {
               <TableCell style={{color: "green", fontSize: '18px'}}
                 align='right'>
                 {Math.round(item?.increase*100)}%
+              </TableCell>
+
+              <TableCell style={{fontSize: '18px'}}
+                align='right'>
+                {aff && aff.length > 0 ? (aff.find(
+                  x => x.gameid === item.gameid))?.price : "Loading :)"} 
+              </TableCell>
+
+              <TableCell style={{fontSize: '18px'}}
+                align='right'>
+                {aff && aff.length > 0 ? (aff.find(
+                  x => x.gameid === item.gameid))?.retailprice : "Loading :)"} 
+              </TableCell>
+
+              <TableCell style={{fontSize: '18px'}}
+                align='right'>
+                {aff && aff.length > 0 && aff.find(
+                  x => x.gameid === item.gameid) ?
+                  <Link href={"https://www.g2a.com"+
+                    (aff.find(x => x.gameid === item.gameid).url)+"?gtag=16cf32cff3"}
+                    target="_blank" rel="noopener noreferrer">
+                    Buy Now!
+                  </Link>
+                  : ""} 
               </TableCell>
 
             </TableRow>

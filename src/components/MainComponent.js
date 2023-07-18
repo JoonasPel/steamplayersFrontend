@@ -12,6 +12,7 @@ const url =
 
 const MainComponent = () => {
   const [data, setData] = useState([]);
+  const [aff, setAff] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
   const [pageNumber, setPageNumber] = useState([1]);
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
@@ -51,6 +52,7 @@ const MainComponent = () => {
       });   
       const parsedData = JSON.parse(response.data.data);
       setTrendingData(parsedData);
+      setAff(JSON.parse(response.data.aff));
       return response.status;
     } catch (error) {
       console.error("error fetching:", error);
@@ -86,7 +88,7 @@ const MainComponent = () => {
             buttonsDisabled={buttonsDisabled} pageNumber={pageNumber}/>
         </Stack>
         <Stack>
-          <TrendingTable data={trendingData}/>
+          <TrendingTable data={trendingData} aff={aff}/>
         </Stack>
       </Stack>
 
