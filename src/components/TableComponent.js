@@ -37,7 +37,7 @@ const TableComponent = ({data, pageNumber}) => {
         </TableHead>
 
         <TableBody>
-          {data && data.map((item, index) => (
+          {data[pageNumber] && data[pageNumber].map((item, index) => (
             <TableRow 
               key={item.gameid}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

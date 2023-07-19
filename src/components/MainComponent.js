@@ -11,7 +11,7 @@ const url =
   "https://jlxkrysich.execute-api.eu-north-1.amazonaws.com/prod/data";
 
 const MainComponent = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [aff, setAff] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
   const [pageNumber, setPageNumber] = useState([1]);
@@ -19,6 +19,7 @@ const MainComponent = () => {
 
   const fetchData = async (page) => {
     try {
+      if (data.hasOwnProperty(page)) { return 200; }
       const response = await axios.get(url, {
         params: {
           page: page.toString()
@@ -32,7 +33,7 @@ const MainComponent = () => {
         item => JSON.parse(item));
       const sortedData = parsedData.sort(
         (a,b)=> b?.playercount - a?.playercount);
-      setData(sortedData);
+      setData(prev => ({...prev, [page]: sortedData}));    
       return response.status;
     } catch (error) {
       console.error("error fetching:", error);
