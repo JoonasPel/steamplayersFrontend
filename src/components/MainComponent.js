@@ -5,7 +5,10 @@ import '../App.css';
 import TableComponent from "./TableComponent";
 import TrendingTable from "./TrendingTable";
 import PageNavigation from "./PageNavigation";
-import Stack from "@mui/material/Stack"
+import Stack from "@mui/material/Stack";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import {useTheme} from '@mui/material/styles';
+
 
 const url =
   "https://jlxkrysich.execute-api.eu-north-1.amazonaws.com/prod/data";
@@ -16,6 +19,9 @@ const MainComponent = () => {
   const [trendingData, setTrendingData] = useState([]);
   const [pageNumber, setPageNumber] = useState([1]);
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("xl"));
 
   const fetchData = async (page) => {
     try {
@@ -81,8 +87,10 @@ const MainComponent = () => {
   }
 
   return (
-    <main className='App-main'>
-      <Stack direction="row" spacing={5}>
+    <main className='App-main'
+    style={matches ? { overflowY: "hidden" } : {}}>
+      <Stack direction={matches ? "column" : "row"} spacing={5}
+      padding={5}>
         <Stack spacing={1} alignItems="flex-end">
           <TableComponent data={data} pageNumber={pageNumber}/>
           <PageNavigation changePage={changePage} 
@@ -92,7 +100,6 @@ const MainComponent = () => {
           <TrendingTable data={trendingData} aff={aff}/>
         </Stack>
       </Stack>
-
     </main>
   );
 };

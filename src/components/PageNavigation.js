@@ -21,12 +21,12 @@ const PageNavigation = ({changePage, buttonsDisabled, pageNumber}) => {
 
         <Stack direction="row" spacing={1}>
 
-          <Button variant="outlined" startIcon={<ArrowBackIosIcon />}
+          <Button variant="inlined" startIcon={<ArrowBackIosIcon />}
             onClick={()=>changePage(-1)}
             disabled={buttonsDisabled || pageNumber==1}
           >EARLIER PAGE</Button>
 
-          <Button variant="outlined" endIcon={<ArrowForwardIosIcon />}
+          <Button variant="inlined" endIcon={<ArrowForwardIosIcon />}
             onClick={()=>changePage(1)} disabled={buttonsDisabled}
           >NEXT PAGE</Button>
 
