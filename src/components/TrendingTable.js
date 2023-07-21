@@ -66,7 +66,7 @@ const TrendingTable = ({data, aff}) => {
                   x => x.gameid === item.gameid) ?
                   <Link href={"https://www.g2a.com"+
                     (aff.find(x => x.gameid === item.gameid).url)+"?gtag=16cf32cff3"}
-                    target="_blank" rel="noopener noreferrer">         
+                    target="_blank" rel="noopener noreferrer" style={{color: "#FF8C00"}}>         
                     {"Buy "}
                     {(salePercentages[item.gameid] ?
                       -salePercentages[item.gameid] + "% OFF!"
