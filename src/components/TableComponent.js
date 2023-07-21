@@ -53,9 +53,9 @@ const TableComponent = ({data, pageNumber}) => {
               <StyledTableCell style={{ width: '100px', fontSize: '22px', fontWeight: 'bold' }}
                 align='right'>Current</StyledTableCell>
               <StyledTableCell style={{ width: '160px', fontSize: '22px', fontWeight: 'bold' }}
-                align='right'>24h peak</StyledTableCell>
+                align='right'>Daily High</StyledTableCell>
               <StyledTableCell style={{ width: '170px', fontSize: '22px', fontWeight: 'bold' }}
-                align='right'>24h bottom</StyledTableCell>
+                align='right'>Daily Low</StyledTableCell>
             </StyledTableRow>
           </TableHead>
 
