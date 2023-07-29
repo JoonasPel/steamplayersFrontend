@@ -13,6 +13,8 @@ import {useTheme} from '@mui/material/styles';
 
 const url =
   "https://jlxkrysich.execute-api.eu-north-1.amazonaws.com/prod/data";
+const searchUrl =
+  "https://jlxkrysich.execute-api.eu-north-1.amazonaws.com/prod/search";
 
 const MainComponent = () => {
   const [data, setData] = useState({});
@@ -47,7 +49,7 @@ const MainComponent = () => {
     }
   };
 
-  const fetchTreding = async () => {
+  const fetchTrending = async () => {
     try {
       const response = await axios.get(url, {
         params: {
@@ -67,9 +69,25 @@ const MainComponent = () => {
     }
   };
 
+  const fetchbySearchQuery = async (query) => {
+    try {
+      const response = await axios.get(searchUrl, {
+        params: { query },
+        headers: {
+          // this api key is not confidental and can be exposed.
+          'x-api-key': 'aZ6S5wfZiW7k1MFsIRhE96EJNqlc2ZDJ8DvK5jCg',
+        },
+      });
+      const parsedData = response.data.map(item => JSON.parse(item));
+      console.log(parsedData);
+    } catch (error) {
+      console.error("error searching:", error);
+    }
+  };
+
   useEffect(() => {
     fetchData(pageNumber);
-    fetchTreding();
+    fetchTrending();
   }, []);
 
   const changePage = async (param) => {
@@ -93,11 +111,13 @@ const MainComponent = () => {
       <Stack direction={matches ? "column" : "row"} spacing={5}
       padding={5}>
         <Stack spacing={1} alignItems="flex-end">
+          <SearchBar executeSearch={fetchbySearchQuery}/>
           <TableComponent data={data} pageNumber={pageNumber}/>
           <PageNavigation changePage={changePage} 
             buttonsDisabled={buttonsDisabled} pageNumber={pageNumber}/>
         </Stack>
         <Stack>
+          {matches ? "" : <div style={{ height: "65px"}} />}
           <TrendingTable data={trendingData} aff={aff}/>
         </Stack>
       </Stack>
