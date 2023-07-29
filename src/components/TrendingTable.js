@@ -21,6 +21,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const StyledTableCellGameName = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '300px',
+  },
+}));
+
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
@@ -60,7 +74,7 @@ const TrendingTable = ({data, aff}) => {
             <StyledTableRow>
               <StyledTableCell style={{ width: '300px', fontSize: '25px', fontWeight: 'bold' }}
                 >Trending Today</StyledTableCell>
-              <StyledTableCell style={{ width: '170px', fontSize: '22px', fontWeight: 'bold' }}
+              <StyledTableCell style={{ width: '190px', fontSize: '22px', fontWeight: 'bold' }}
                 align='right'>{"Growth \u{1F4C8}"}</StyledTableCell>
               <StyledTableCell style={{ width: '200px', fontSize: '22px', fontWeight: 'bold' }}
                 align='right'>{"Deals \u{1F4B0}"}</StyledTableCell>
@@ -73,10 +87,10 @@ const TrendingTable = ({data, aff}) => {
                 key={item.gameid}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <StyledTableCell style={{ fontSize: '17px'}}
+                <StyledTableCellGameName style={{ fontSize: '17px'}}
                   component='th' scope='row'>
                   {item.gamename}
-                </StyledTableCell>
+                </StyledTableCellGameName>
 
                 <StyledTableCell style={{color: "green", fontSize: '18px'}}
                   align='right'>
