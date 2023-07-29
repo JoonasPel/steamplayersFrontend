@@ -5,6 +5,7 @@ import '../App.css';
 import TableComponent from "./TableComponent";
 import TrendingTable from "./TrendingTable";
 import PageNavigation from "./PageNavigation";
+import SearchBar from './SearchBar';
 import Stack from "@mui/material/Stack";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
