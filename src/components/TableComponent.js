@@ -60,7 +60,7 @@ const TableComponent = ({data, pageNumber}) => {
           </TableHead>
 
           <TableBody>
-            {data[pageNumber] && data[pageNumber].map((item, index) => (
+            {data?.length !== 0 && data.map((item, index) => (
               <StyledTableRow 
                 key={item.gameid}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

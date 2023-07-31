@@ -1,4 +1,5 @@
 import axios from 'axios';
+import fetcher from '../utils/cacher';
 import { useEffect, useState } from "react";
 import '../App.css';
 // components
@@ -17,7 +18,7 @@ const searchUrl =
   "https://jlxkrysich.execute-api.eu-north-1.amazonaws.com/prod/search";
 
 const MainComponent = () => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [aff, setAff] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
   const [pageNumber, setPageNumber] = useState([1]);
@@ -26,63 +27,41 @@ const MainComponent = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("xl"));
 
+  /**
+   * returns true if successful, otherwise false
+   */
   const fetchData = async (page) => {
-    try {
-      if (data.hasOwnProperty(page)) { return 200; }
-      const response = await axios.get(url, {
-        params: {
-          page: page.toString()
-        },
-        headers: {
-          // this api key is not confidental and can be exposed.
-          'x-api-key': 'aZ6S5wfZiW7k1MFsIRhE96EJNqlc2ZDJ8DvK5jCg',
-        },
-      });
-      const parsedData = response.data.data.map(
-        item => JSON.parse(item));
-      const sortedData = parsedData.sort(
-        (a,b)=> b?.playercount - a?.playercount);
-      setData(prev => ({...prev, [page]: sortedData}));    
-      return response.status;
-    } catch (error) {
-      console.error("error fetching:", error);
-    }
+    const response = await fetcher(url+"/?page="+page);
+    if (!response) return false;
+    const parsedData = response.data.map(
+      item => JSON.parse(item));
+    const sortedData = parsedData.sort(
+      (a,b)=> b?.playercount - a?.playercount);
+    setData(sortedData);
+    return true;
   };
 
+  /**
+   * returns true if successful, otherwise false
+   */
   const fetchTrending = async () => {
-    try {
-      const response = await axios.get(url, {
-        params: {
-          trending: 1
-        },
-        headers: {
-          // this api key is not confidental and can be exposed.
-          'x-api-key': 'aZ6S5wfZiW7k1MFsIRhE96EJNqlc2ZDJ8DvK5jCg',
-        },
-      });   
-      const parsedData = JSON.parse(response.data.data);
-      setTrendingData(parsedData);
-      setAff(JSON.parse(response.data.aff));
-      return response.status;
-    } catch (error) {
-      console.error("error fetching:", error);
-    }
+    const response = await fetcher(url+"/?trending=1");
+    if (!response) return false;
+    const parsedData = JSON.parse(response.data);
+    setTrendingData(parsedData);
+    setAff(JSON.parse(response.aff));
+    return true;
   };
 
+  /**
+   * returns true if successful, otherwise false
+   */
   const fetchbySearchQuery = async (query) => {
-    try {
-      const response = await axios.get(searchUrl, {
-        params: { query },
-        headers: {
-          // this api key is not confidental and can be exposed.
-          'x-api-key': 'aZ6S5wfZiW7k1MFsIRhE96EJNqlc2ZDJ8DvK5jCg',
-        },
-      });
-      const parsedData = response.data.map(item => JSON.parse(item));
-      console.log(parsedData);
-    } catch (error) {
-      console.error("error searching:", error);
-    }
+    const response = await fetcher(searchUrl+"/?query="+query);
+    if (!response) return false;
+    const parsedData = response.map(item => JSON.parse(item));
+    console.log(parsedData);
+    return true;
   };
 
   useEffect(() => {
@@ -98,11 +77,9 @@ const MainComponent = () => {
       setButtonsDisabled(false);
       return;
     }
-    let responseStatus = await fetchData(newPageNumber);
-    if (responseStatus === 200) {
-      setPageNumber(newPageNumber);
-      setButtonsDisabled(false);
-    } 
+    let isSuccesful = await fetchData(newPageNumber);
+    if (isSuccesful) { setPageNumber(newPageNumber); }
+    setButtonsDisabled(false);
   }
 
   return (
