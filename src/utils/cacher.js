@@ -20,10 +20,6 @@ const fetcher = async (url) => {
       return cached[0];
     } else {
       const response = await axios.get(url, {
-        headers: {
-          // this api key is not confidental and can be exposed.
-          'x-api-key': 'aZ6S5wfZiW7k1MFsIRhE96EJNqlc2ZDJ8DvK5jCg',
-        },
         timeout: 10000,
       });
       urlCache.set(url, [response.data, currTimestampSeconds]);
