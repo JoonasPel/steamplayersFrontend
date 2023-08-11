@@ -59,7 +59,9 @@ const MainComponent = () => {
     const response = await fetcher(searchUrl+"/?query="+query);
     if (!response) return false;
     const parsedData = response.map(item => JSON.parse(item));
-    console.log(parsedData);
+    const removedDuplicates = [...new Map(parsedData.map(game =>
+      [game.gameid, game])).values()];
+    setData(removedDuplicates);
     return true;
   };
 

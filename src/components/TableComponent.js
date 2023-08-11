@@ -67,7 +67,8 @@ const TableComponent = ({data, pageNumber}) => {
               >
                 <StyledTableCell component='th' scope='row'
                   style={{ fontSize: '18px'}}>
-                  {(((pageNumber-1)*10)+index+1) +'. '+ item.gamename}
+                  {data?.length===10 ? (((pageNumber-1)*10)+index+1) + '. ':""}
+                  {item.gamename}
                 </StyledTableCell>
 
                 <StyledTableCell style={{ fontSize: '17px'}}
