@@ -76,8 +76,6 @@ const TrendingTable = ({data, aff}) => {
                 >Trending Today</StyledTableCell>
               <StyledTableCell style={{ width: '190px', fontSize: '22px', fontWeight: 'bold' }}
                 align='right'>{"Growth \u{1F4C8}"}</StyledTableCell>
-              <StyledTableCell style={{ width: '200px', fontSize: '22px', fontWeight: 'bold' }}
-                align='right'>{"Deals \u{1F4B0}"}</StyledTableCell>
             </StyledTableRow>
           </TableHead>
 
@@ -95,22 +93,6 @@ const TrendingTable = ({data, aff}) => {
                 <StyledTableCell style={{color: "green", fontSize: '18px'}}
                   align='right'>
                   {Math.round(item?.increase*100)}%
-                </StyledTableCell>
-
-                <StyledTableCell style={{fontSize: '18px'}}
-                  align='right'>
-                  {aff && aff.length > 0 && aff.find(
-                    x => x.gameid === item.gameid) ?
-                    <Link href={"https://www.g2a.com"+
-                      (aff.find(x => x.gameid === item.gameid).url)+"?gtag=16cf32cff3"}
-                      target="_blank" rel="noopener noreferrer" style={{color: "#FF8C00"}}>         
-                      {"Buy "}
-                      {(salePercentages[item.gameid] ?
-                        -salePercentages[item.gameid] + "% OFF!"
-                        : ""
-                      )}
-                    </Link>
-                    : ""} 
                 </StyledTableCell>
 
               </StyledTableRow>

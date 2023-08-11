@@ -49,7 +49,6 @@ const MainComponent = () => {
     if (!response) return false;
     const parsedData = JSON.parse(response.data);
     setTrendingData(parsedData);
-    setAff(JSON.parse(response.aff));
     return true;
   };
 
