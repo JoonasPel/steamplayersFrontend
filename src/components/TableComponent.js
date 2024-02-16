@@ -1,6 +1,6 @@
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 
 // return number with thousand separators. 1000000=>1.000.000
 function numberWithSeparators(number) {
+  if (number == null) return 0;
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
@@ -34,7 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const TableComponent = ({data, pageNumber}) => {
+const TableComponent = ({ data, pageNumber }) => {
   return (
     <Box sx={{ boxShadow: 20 }}>
       <TableContainer component={Paper}
@@ -49,7 +50,7 @@ const TableComponent = ({data, pageNumber}) => {
           <TableHead>
             <StyledTableRow>
               <StyledTableCell style={{ width: '500px', fontSize: '25px', fontWeight: 'bold' }}
-                >Game</StyledTableCell>
+              >Game</StyledTableCell>
               <StyledTableCell style={{ width: '100px', fontSize: '22px', fontWeight: 'bold' }}
                 align='right'>Current</StyledTableCell>
               <StyledTableCell style={{ width: '160px', fontSize: '22px', fontWeight: 'bold' }}
@@ -61,31 +62,31 @@ const TableComponent = ({data, pageNumber}) => {
 
           <TableBody>
             {data?.length !== 0 && data.map((item, index) => (
-              <StyledTableRow 
+              <StyledTableRow
                 key={item.gameid}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <StyledTableCell component='th' scope='row'
-                  style={{ fontSize: '18px'}}>
-                  {data?.length===10 ? (((pageNumber-1)*10)+index+1) + '. ':""}
+                  style={{ fontSize: '18px' }}>
+                  {data?.length === 10 ? (((pageNumber - 1) * 10) + index + 1) + '. ' : ""}
                   {item.gamename}
                 </StyledTableCell>
 
-                <StyledTableCell style={{ fontSize: '17px'}}
+                <StyledTableCell style={{ fontSize: '17px' }}
                   align='right'>
-                    {numberWithSeparators(item?.playercount)}
+                  {numberWithSeparators(item?.playercount)}
                 </StyledTableCell>
 
-                <StyledTableCell style={{ fontSize: '17px'}}
+                <StyledTableCell style={{ fontSize: '17px' }}
                   align='right'>
-                    {numberWithSeparators(item?.peak)}
+                  {numberWithSeparators(item?.peak)}
                 </StyledTableCell>
 
-                <StyledTableCell style={{ fontSize: '17px'}}
+                <StyledTableCell style={{ fontSize: '17px' }}
                   align='right'>
-                    {numberWithSeparators(item?.bottom)}
+                  {numberWithSeparators(item?.bottom)}
                 </StyledTableCell>
-                
+
               </StyledTableRow>
             ))}
           </TableBody>
