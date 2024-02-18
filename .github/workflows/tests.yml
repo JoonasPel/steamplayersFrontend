@@ -6,5 +6,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: install build
+        run: |
+          npm ci
+          npm run build --if-present
+          npm start & npx wait-on http://localhost:3000
+        env:
+          CI: true
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
