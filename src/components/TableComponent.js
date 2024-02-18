@@ -25,6 +25,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+const StyledTableCellGame = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: '300px',
+  },
+}));
+
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
@@ -66,11 +80,11 @@ const TableComponent = ({ data, pageNumber }) => {
                 key={item.gameid}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <StyledTableCell component='th' scope='row'
+                <StyledTableCellGame component='th' scope='row'
                   style={{ fontSize: '18px' }}>
                   {data?.length === 10 ? (((pageNumber - 1) * 10) + index + 1) + '. ' : ""}
                   {item.gamename}
-                </StyledTableCell>
+                </StyledTableCellGame>
 
                 <StyledTableCell style={{ fontSize: '17px' }}
                   align='right'>
