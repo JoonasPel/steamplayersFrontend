@@ -7,8 +7,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: install
-        run: npm ci
-
-      - name: Cypress Tests
-        run: npx start-server-and-test 'npm start' http://localhost:3000 'npx cypress run'
+      - name: Run Cypress Test
+        uses: cypress-io/github-action@v6
+        with:
+          command: npx cypress run
+          browser: chrome
