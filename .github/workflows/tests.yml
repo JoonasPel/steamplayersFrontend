@@ -7,13 +7,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: install build
-        run: |
-          npm ci
-          npm run build --if-present
-          npm start & npx wait-on http://127.0.0.1:3000
-        env:
-          CI: true
+      - name: install
+        run: npm ci
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+      - name: Cypress Tests
+        run: npx start-server-and-test 'npm start' http://localhost:3000 'npx cypress run'
