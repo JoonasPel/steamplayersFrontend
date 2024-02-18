@@ -10,5 +10,7 @@ jobs:
       - name: Run Cypress Test
         uses: cypress-io/github-action@v6
         with:
-          command: npx cypress run
+          start: npm run start
           browser: chrome
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 180
