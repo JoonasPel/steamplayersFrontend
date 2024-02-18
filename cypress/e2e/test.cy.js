@@ -6,7 +6,7 @@ describe('Joonaksen testi', () => {
   });
 
   it('find cs go', () => {
-    cy.get('th').should('contain.text', 'Counter-Strike: Global Offensive');
+    cy.get('th').should('contain.text', 'Counter-Strike 2');
   });
 
   it('search feature', () => {
